@@ -7,6 +7,7 @@ import plotly.express as px
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
+server=app.server
 
 # Load your Excel data
 file_path = "90A5446B6867-ferme anoljdidÀúÊ·Êý¾Ý (3).xls"
