@@ -1,6 +1,3 @@
-from google.colab import drive
-drive.mount('/content/drive')
-
 import dash
 from dash import dcc
 from dash import html
@@ -12,7 +9,7 @@ import plotly.express as px
 app = dash.Dash(__name__)
 
 # Load your Excel data
-file_path = "/content/drive/MyDrive/Smart_Farming/90A5446B6867-ferme anoljdidÀúÊ·Êý¾Ý (3).xls"
+file_path = "90A5446B6867-ferme anoljdidÀúÊ·Êý¾Ý (3).xls"
 df = pd.read_excel(file_path)
 
 # Define the layout of your dashboard
