@@ -1,8 +1,4 @@
-dash
 dash-core-components
 dash-html-components
 dash-renderer
 dash-table
-numpy
-pandas
-plotly
