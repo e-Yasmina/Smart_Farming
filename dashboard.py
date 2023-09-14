@@ -166,7 +166,3 @@ def update_graph(selected_device, selected_variable, n):
     variable_graph = {"data": [trace], "layout": layout}
 
     return variable_graph
-
-# Run the app
-if __name__ == '__main__':
-    app.run_server(debug=True)
