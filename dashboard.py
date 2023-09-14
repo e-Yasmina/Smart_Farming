@@ -45,7 +45,7 @@ def generate_historical_and_real_time_data():
     current_timestamp1 = current_timestamp2 = datetime.now()
 
     # Generate historical data for 24 hours
-    for _ in range(6 * 60):  # 24 hours * 60 minutes
+    for _ in range(6 *12* 60):  # 24 hours * 60 minutes
         row = ["ferme anoljdid", "90A5446B6867", current_timestamp1]
 
         for column in columns[1:]:
