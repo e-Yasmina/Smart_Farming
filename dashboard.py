@@ -95,6 +95,7 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, ch
                 options=[{'label': device, 'value': device} for device in df['Device Name'].unique()],
                 value=df['Device Name'].unique()[0],
                 multi=False,
+                style={'background-color': 'white', 'color': 'black'},
             ),
         ], style={'margin-bottom': '20px', 'width': '48%', 'display': 'inline-block', 'margin-right': '100px', 'margin-left': '100px'}),
 
@@ -105,6 +106,7 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, ch
                 options=[{'label': variable, 'value': variable} for variable in df.columns if variable not in ['Number', 'Device Name', 'Device Number', 'Receive Time','timestamp', 'unit']],
                 value='temperature',  # Default variable to display
                 multi=False,
+                style={'background-color': 'white', 'color': 'black'},
             ),
         ], style={'margin-bottom': '20px', 'width': '48%', 'display': 'inline-block', 'margin-right': '100px', 'margin-left': '100px'}),
     ]),
