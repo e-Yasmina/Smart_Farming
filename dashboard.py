@@ -1,5 +1,3 @@
-
-
 import pandas as pd
 import numpy as np
 import random
@@ -57,7 +55,7 @@ def generate_historical_and_real_time_data():
             row.append(value)
 
         synthetic_data.append(row)
-        current_timestamp1 -= timedelta(minutes=1)  # Subtract 1 minute for the next data point
+        current_timestamp1 -= timedelta(seconds=5)  # Subtract 5 seconds for the next data point
 
     # Reverse the list to have data in ascending order
     synthetic_data.reverse()
