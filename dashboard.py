@@ -3,7 +3,7 @@ import numpy as np
 import random
 from datetime import datetime, timedelta
 import time
-import dash_daq as daq
+
 
 from dash_components import temperature
 from dash_components import ph
@@ -11,15 +11,12 @@ from dash_components import ph
 import dash
 from dash import dcc, html
 from dash.dependencies import State, Input, Output 
-import pandas as pd
-import plotly.express as px
+import dash_daq as daq
 
 import plotly
-import random
 import plotly.graph_objs as go
+import plotly.express as px
 
-
-# Replace these with the actual column names
 columns = [
     'timestamp', 'temperature', 'humidity', 'soil_temperature', 'soil_moisture',
     'soil_ph', 'soil_nitrogen', 'soil_phosphorus', 'soil_potassium', 'soil_conductivity'
@@ -143,6 +140,7 @@ def update_graph(selected_device, selected_variable, n):
     
     temperature_value = row[3]
     ph_value= row[7]
+    
     new_data = pd.DataFrame([row], columns=df.columns)
     df = pd.concat([df, new_data], ignore_index=True)
     
