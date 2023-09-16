@@ -3,11 +3,13 @@ import numpy as np
 import random
 from datetime import datetime, timedelta
 import time
+import dash_daq as daq
+
 from dash_components import temperature
 
 import dash
 from dash import dcc, html
-from dash.dependencies import Input, Output 
+from dash.dependencies import State, Input, Output 
 import pandas as pd
 import plotly.express as px
 
