@@ -3,7 +3,7 @@ import numpy as np
 import random
 from datetime import datetime, timedelta
 import time
-
+from dash_components import temperature
 
 import dash
 from dash import dcc, html
@@ -82,6 +82,7 @@ custom_styles = {
 
 # Generate the initial DataFrame
 df =generate_historical_and_real_time_data()
+temperature_value =df['temperature'].iloc[-1]
 
 # Define the layout of your dashboard
 app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, children=[
@@ -111,11 +112,11 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, ch
         ], style={'margin-bottom': '20px', 'width': '48%', 'display': 'inline-block', 'margin-right': '100px', 'margin-left': '100px'}),
     ]),
 
-    dcc.Graph(id='selected-variable-graph', animate=True),
+    dcc.Graph(id='selected-variable-graph', animate=True), 
+    temperature,
     dcc.Interval( id='graph-update', interval=5*1000),
 ])
 
-# Define callback to update the graph based on device and variable selection
 # Define callback to update the graph based on device and variable selection
 @app.callback(
     Output('selected-variable-graph', 'figure'),
@@ -123,10 +124,8 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, ch
      Input('variable-dropdown', 'value'),
      Input('graph-update', 'n_intervals')]
 )
-
-
 def update_graph(selected_device, selected_variable, n):
-    global df  # Make sure we use the global DataFrame for real-time updates
+    global df, temperature_value  # Make sure we use the global DataFrame for real-time updates
 
     # Append new real-time data to the existing DataFrame
     row = ["ferme anoljdid", "90A5446B6867", datetime.now()]
@@ -136,7 +135,8 @@ def update_graph(selected_device, selected_variable, n):
         std = column_stats[column]['std']
         value = random.normalvariate(mean, std)
         row.append(value)
-
+    
+    temperature_value = row[3]
     new_data = pd.DataFrame([row], columns=df.columns)
     df = pd.concat([df, new_data], ignore_index=True)
     
@@ -145,24 +145,34 @@ def update_graph(selected_device, selected_variable, n):
     filtered_df = df[df['Device Name'] == selected_device]
 
     # Create a line chart for the selected variable
-     # Create the graph trace
     trace = go.Scatter(
         x=filtered_df['timestamp'],
         y=filtered_df[selected_variable],
         mode="lines",
         name=selected_variable,
         line={"color": "rgb(230, 25, 2)"},
-
     )
 
-    # Create the graph layout
     layout = go.Layout(
         title=f'{selected_variable} over Time',
         xaxis=dict(range=[min(filtered_df['timestamp']), max(filtered_df['timestamp'])]),
         yaxis=dict(range=[min(filtered_df[selected_variable]), max(filtered_df[selected_variable])]),
     )
-    
 
     variable_graph = {"data": [trace], "layout": layout}
 
     return variable_graph
+
+# Define callback to update the temperature gauge
+@app.callback(
+    [Output("temperature-gauge", "value"), Output("temperature-gauge", "color")],
+    Input('graph-update', 'n_intervals')
+)
+def update_temperature_and_color(n):
+    # Replace this with your real-time temperature data source
+    new_temperature_value = temperature_value
+    color = "#D90702"  # Default color
+    if 25 <= new_temperature_value <= 45:
+        color = "#36c92e"  # Green if within [25, 45] range
+    
+    return new_temperature_value, color
