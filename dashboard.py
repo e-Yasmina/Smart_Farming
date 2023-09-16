@@ -6,6 +6,7 @@ import time
 import dash_daq as daq
 
 from dash_components import temperature
+from dash_components import ph
 
 import dash
 from dash import dcc, html
@@ -85,6 +86,7 @@ custom_styles = {
 # Generate the initial DataFrame
 df =generate_historical_and_real_time_data()
 temperature_value =df['temperature'].iloc[-1]
+temperature_ph= df['soil_ph'].iloc[-1]
 
 # Define the layout of your dashboard
 app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, children=[
@@ -116,6 +118,7 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, ch
 
     dcc.Graph(id='selected-variable-graph', animate=True), 
     temperature,
+    ph,
     dcc.Interval( id='graph-update', interval=5*1000),
 ])
 
@@ -127,7 +130,7 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, ch
      Input('graph-update', 'n_intervals')]
 )
 def update_graph(selected_device, selected_variable, n):
-    global df, temperature_value  # Make sure we use the global DataFrame for real-time updates
+    global df, temperature_value, ph_value  # Make sure we use the global DataFrame for real-time updates
 
     # Append new real-time data to the existing DataFrame
     row = ["ferme anoljdid", "90A5446B6867", datetime.now()]
@@ -139,6 +142,7 @@ def update_graph(selected_device, selected_variable, n):
         row.append(value)
     
     temperature_value = row[3]
+    ph_value= row[7]
     new_data = pd.DataFrame([row], columns=df.columns)
     df = pd.concat([df, new_data], ignore_index=True)
     
@@ -178,3 +182,14 @@ def update_temperature_and_color(n):
         color = "#36c92e"  # Green if within [25, 45] range
     
     return new_temperature_value, color
+
+
+@app.callback(
+    Output("ph-gauge", "value"),
+    Input('graph-update', 'n_intervals')
+)
+def update_ph_value(n):
+    # Replace this with your real-time temperature data source
+    new_ph_value = ph_value
+    
+    return new_ph_value
