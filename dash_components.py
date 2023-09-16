@@ -23,3 +23,18 @@ temperature = html.Div(
     ],
     n_clicks=0,
 )
+
+ph = html.Div(
+    id="control-panel-ph",
+    children=[
+        daq.Gauge(
+            id="ph-gauge",
+            color={"gradient":True,"ranges":{"#E0093D":[0,3],"yellow":[3,4.5],"green":[4.5,8],"#E0D906":[8,10],"#E11901":[10,14]}},
+            label="Ph",
+            min=0,
+            max=14,
+            value=7,
+)
+    ],
+    n_clicks=0,
+)
