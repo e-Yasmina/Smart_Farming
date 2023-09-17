@@ -83,7 +83,8 @@ custom_styles = {
 # Generate the initial DataFrame
 df =generate_historical_and_real_time_data()
 temperature_value =df['temperature'].iloc[-1]
-temperature_ph= df['soil_ph'].iloc[-1]
+ph_value= df['soil_ph'].iloc[-1]
+humidity_value= df['humidity'].iloc[-1]
 
 # Define the layout of your dashboard
 app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, children=[
@@ -116,6 +117,7 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, ch
     dcc.Graph(id='selected-variable-graph', animate=True), 
     temperature,
     ph,
+    humidity,
     dcc.Interval( id='graph-update', interval=5*1000),
 ])
 
@@ -127,7 +129,7 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, ch
      Input('graph-update', 'n_intervals')]
 )
 def update_graph(selected_device, selected_variable, n):
-    global df, temperature_value, ph_value  # Make sure we use the global DataFrame for real-time updates
+    global df, temperature_value, ph_value, humidity_value  # Make sure we use the global DataFrame for real-time updates
 
     # Append new real-time data to the existing DataFrame
     row = ["ferme anoljdid", "90A5446B6867", datetime.now()]
@@ -140,7 +142,7 @@ def update_graph(selected_device, selected_variable, n):
     
     temperature_value = row[3]
     ph_value= row[7]
-    
+    humidity_value= row[4]
     new_data = pd.DataFrame([row], columns=df.columns)
     df = pd.concat([df, new_data], ignore_index=True)
     
@@ -191,3 +193,14 @@ def update_ph_value(n):
     new_ph_value = ph_value
     
     return new_ph_value
+
+
+@app.callback(
+    Output("humidity-gauge", "value"),
+    Input('graph-update', 'n_intervals')
+)
+def update_humidity_value(n):
+    # Replace this with your real-time temperature data source
+    new_humidity_value = humidity_value
+    
+    return new_humidity_value
