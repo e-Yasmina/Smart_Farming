@@ -7,6 +7,7 @@ import time
 
 from dash_components import temperature
 from dash_components import ph
+from dash_components import humidity
 
 import dash
 from dash import dcc, html
