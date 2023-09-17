@@ -154,7 +154,7 @@ def update_graph(selected_device, selected_variable, n):
         y=filtered_df[selected_variable],
         mode="lines",
         name=selected_variable,
-        line={"color": "rgb(66, 76, 227)"},
+        line={"color": "rgb(196, 69, 237)"},
     )
 
     layout = go.Layout(
