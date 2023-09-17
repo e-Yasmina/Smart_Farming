@@ -23,7 +23,6 @@ temperature = html.Div(
     ],
     n_clicks=0,
 )
-
 ph = html.Div(
     id="control-panel-ph",
     children=[
@@ -31,9 +30,28 @@ ph = html.Div(
             id="ph-gauge",
             color={"gradient":True,"ranges":{"#E0093D":[0,3],"yellow":[3,4.5],"green":[4.5,8],"#E0D906":[8,10],"#E11901":[10,14]}},
             label="Ph",
+            units="%RH",
             min=0,
             max=14,
             value=7,
+            showCurrentValue=True,
+
+)
+    ],
+    n_clicks=0,
+)
+humidity = html.Div(
+    id="control-panel-humidity",
+    children=[
+        daq.Gauge(
+            id="humidity-gauge",
+            color={"gradient":True,"ranges":{"red":[0,40],"green":[40,85],"#E11901":[85,100]}},
+            label="Humidity",
+            units="%",
+            min=0,
+            max=100,
+            value=50,
+            showCurrentValue=True,
 )
     ],
     n_clicks=0,
