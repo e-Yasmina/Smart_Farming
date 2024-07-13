@@ -74,6 +74,7 @@ def generate_historical_and_real_time_data():
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
+server=app.server
 
 # Define custom CSS styles
 custom_styles = {
