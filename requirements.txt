@@ -3,3 +3,4 @@ dash-html-components
 dash-renderer
 dash-table
 dash_daq
+gunicorn
