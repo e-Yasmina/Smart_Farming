@@ -4,3 +4,4 @@ dash-renderer
 dash-table
 dash_daq
 gunicorn
+pandas
