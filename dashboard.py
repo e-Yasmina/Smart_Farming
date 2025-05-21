@@ -117,9 +117,21 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, ch
     ]),
 
     dcc.Graph(id='selected-variable-graph', animate=True), 
-    temperature,
-    ph,
-    humidity,
+    html.Div(
+        children=[
+            temperature,
+            ph,
+            humidity,
+        ],
+        style={
+            'display': 'flex',
+            'flexDirection': 'row',
+            'justifyContent': 'center',
+            'alignItems': 'center',
+            'gap': '40px',  # Optional: adds space between components
+            'marginBottom': '30px'
+        }
+    ),
     dcc.Interval( id='graph-update', interval=5*1000),
 ])
 
