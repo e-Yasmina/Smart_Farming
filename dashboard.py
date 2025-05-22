@@ -89,7 +89,7 @@ ph_value= df['soil_ph'].iloc[-1]
 humidity_value= df['humidity'].iloc[-1]
 
 # Define the layout of your dashboard
-app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white'}, children=[
+app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white','margin': '0', 'padding': '0', 'boxSizing': 'border-box','minHeight': '100vh' }, children=[
     html.H1("Farm Data Dashboard", style={'color': '#744e3a'}),
 
     html.Div([
