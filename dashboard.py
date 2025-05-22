@@ -102,7 +102,7 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white','mar
                 multi=False,
                 style={'background-color': 'white', 'color': 'black'},
             ),
-        ], style={'margin-bottom': '20px', 'width': '48%', 'display': 'inline-block', 'margin-right': '100px', 'margin-left': '100px'}),
+        ], style={'margin-bottom': '20px', 'width': '48%', 'display': 'inline-block',}),
 
         html.Div([
             html.Label("Select a Variable", style={'color': '#1e1917'}),
