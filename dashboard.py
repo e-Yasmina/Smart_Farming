@@ -89,8 +89,8 @@ ph_value= df['soil_ph'].iloc[-1]
 humidity_value= df['humidity'].iloc[-1]
 
 # Define the layout of your dashboard
-app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white','margin': '0', 'padding': '0', 'boxSizing': 'border-box','minHeight': '100vh' }, children=[
-    html.H1("Farm Data Dashboard", style={'color': '#744e3a'}),
+app.layout = html.Div([
+    html.H1("Farm Data Dashboard", className="dash-title"),
 
     html.Div([
         html.Div([
@@ -100,39 +100,31 @@ app.layout = html.Div(style={'backgroundColor': '#d2bea5', 'color': 'white','mar
                 options=[{'label': device, 'value': device} for device in df['Device Name'].unique()],
                 value=df['Device Name'].unique()[0],
                 multi=False,
-                style={'background-color': 'white', 'color': 'black'},
             ),
-        ], style={'margin-bottom': '20px', 'width': '48%', 'display': 'inline-block',}),
+        ], className="dropdown-container"),
 
         html.Div([
             html.Label("Select a Variable", style={'color': '#1e1917'}),
             dcc.Dropdown(
                 id='variable-dropdown',
                 options=[{'label': variable, 'value': variable} for variable in df.columns if variable not in ['Number', 'Device Name', 'Device Number', 'Receive Time','timestamp', 'unit']],
-                value='temperature',  # Default variable to display
+                value='temperature',
                 multi=False,
-                style={'background-color': 'white', 'color': 'black'},
             ),
-        ], style={'margin-bottom': '20px', 'width': '48%', 'display': 'inline-block', 'margin-right': '100px', 'margin-left': '100px'}),
-    ]),
+        ], className="dropdown-container"),
+    ], className="dropdown-row"),
 
-    dcc.Graph(id='selected-variable-graph', animate=True), 
+    dcc.Graph(id='selected-variable-graph', animate=True),
+
     html.Div(
         children=[
             temperature,
             ph,
             humidity,
         ],
-        style={
-            'display': 'flex',
-            'flexDirection': 'row',
-            'justifyContent': 'center',
-            'alignItems': 'center',
-            'gap': '40px',  # Optional: adds space between components
-            'marginBottom': '30px'
-        }
+        className="gauges-row"
     ),
-    dcc.Interval( id='graph-update', interval=5*1000),
+    dcc.Interval(id='graph-update', interval=5*1000),
 ])
 
 # Define callback to update the graph based on device and variable selection

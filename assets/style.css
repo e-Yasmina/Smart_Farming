@@ -1,0 +1,56 @@
+/* assets/styles.css */
+
+/* Global styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #d2bea5; /* Match your app background */
+    overflow-x: hidden;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+
+/* Dashboard title */
+.dash-title {
+    color: #744e3a;
+    margin: 0;
+    padding: 16px 0;
+}
+
+/* Dropdown container row */
+.dropdown-row {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Individual dropdown containers */
+.dropdown-container {
+    margin-bottom: 20px;
+    width: 48%;
+}
+
+/* Device dropdown */
+#device-dropdown, #variable-dropdown {
+    background-color: white;
+    color: black;
+}
+
+/* Gauges row */
+.gauges-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 30px;
+}
