@@ -49,9 +49,8 @@ html, body {
 .gauges-row {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    gap: 100px;
-    margin: 50px;
-    /* margin-bottom: 30px; */
+    padding: 100px 0;              /* Equal space top and bottom */
+    gap: 0;  
 }
