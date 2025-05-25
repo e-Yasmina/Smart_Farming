@@ -180,9 +180,7 @@ def update_graph(selected_device, selected_variable, n):
     yaxis=dict(range=[min(filtered_df[selected_variable]), max(filtered_df[selected_variable])]),
     template='plotly_dark',
     )
-
-
-
+    return fig
 
 
 # Define callback to update the temperature gauge
