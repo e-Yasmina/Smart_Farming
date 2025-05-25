@@ -134,8 +134,14 @@ app.layout = html.Div([
      Input('variable-dropdown', 'value'),
      Input('graph-update', 'n_intervals')]
 )
+@app.callback(
+    Output('selected-variable-graph', 'figure'),
+    [Input('device-dropdown', 'value'),
+     Input('variable-dropdown', 'value'),
+     Input('graph-update', 'n_intervals')]
+)
 def update_graph(selected_device, selected_variable, n):
-    global df, temperature_value, ph_value, humidity_value  # Make sure we use the global DataFrame for real-time updates
+    global df, temperature_value, ph_value, humidity_value
 
     # Append new real-time data to the existing DataFrame
     row = ["ferme anoljdid", "90A5446B6867", datetime.now()]
@@ -145,39 +151,44 @@ def update_graph(selected_device, selected_variable, n):
         std = column_stats[column]['std']
         value = random.normalvariate(mean, std)
         row.append(value)
-    
+
     temperature_value = row[3]
-    ph_value= row[7]
-    humidity_value= row[4]
+    ph_value = row[7]
+    humidity_value = row[4]
+
     new_data = pd.DataFrame([row], columns=df.columns)
     df = pd.concat([df, new_data], ignore_index=True)
-    
     df = df.iloc[-60:]
 
     filtered_df = df[df['Device Name'] == selected_device]
 
-    # Create a line chart for the selected variable
-    trace = go.Scatter(
+    # Create a new figure from scratch
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(
         x=filtered_df['timestamp'],
         y=filtered_df[selected_variable],
-        mode="lines",
+        mode='lines',
         name=selected_variable,
-        line={"color": "rgb(196, 69, 237)"},
-    )
+        line=dict(color='rgb(196, 69, 237)')
+    ))
 
-    # Format the variable name for the title
     formatted_variable = selected_variable.replace('_', ' ').title()
 
-    fig = go.Figure(data=[trace])
     fig.update_layout(
-    title={'text': f'{formatted_variable} over Time', 'x': 0.5},
-    xaxis=dict(range=[min(filtered_df['timestamp']), max(filtered_df['timestamp'])]),
-    yaxis=dict(range=[min(filtered_df[selected_variable]), max(filtered_df[selected_variable])]),
+        title=dict(
+            text=f'{formatted_variable} over Time',
+            font=dict(size=20),
+            x=0.5  # center the title
+        ),
+        xaxis_title='Time',
+        yaxis_title=formatted_variable,
+        template='plotly_dark',
+        transition_duration=500
     )
 
-
-
     return fig
+
 
 
 # Define callback to update the temperature gauge
