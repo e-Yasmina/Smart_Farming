@@ -168,14 +168,16 @@ def update_graph(selected_device, selected_variable, n):
     # Format the variable name for the title
     formatted_variable = selected_variable.replace('_', ' ').title()
 
-    layout = go.Layout(
+    fig = go.Figure(
+    data=[trace],
+    layout=go.Layout(
         title=f'{formatted_variable} over Time',
         xaxis=dict(range=[min(filtered_df['timestamp']), max(filtered_df['timestamp'])]),
         yaxis=dict(range=[min(filtered_df[selected_variable]), max(filtered_df[selected_variable])]),
     )
+  )
 
-    # variable_graph = {"data": [trace], "layout": layout}
-    fig = go.Figure(data=[trace], layout=layout)
+
     return fig
 
 
