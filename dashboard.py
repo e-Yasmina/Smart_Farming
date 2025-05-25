@@ -174,9 +174,10 @@ def update_graph(selected_device, selected_variable, n):
         yaxis=dict(range=[min(filtered_df[selected_variable]), max(filtered_df[selected_variable])]),
     )
 
-    variable_graph = {"data": [trace], "layout": layout}
+    # variable_graph = {"data": [trace], "layout": layout}
+    fig = go.Figure(data=[trace], layout=layout)
+    return fig
 
-    return variable_graph
 
 # Define callback to update the temperature gauge
 @app.callback(
