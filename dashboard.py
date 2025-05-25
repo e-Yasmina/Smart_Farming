@@ -179,8 +179,7 @@ def update_graph(selected_device, selected_variable, n):
     xaxis=dict(range=[min(filtered_df['timestamp']), max(filtered_df['timestamp'])]),
     yaxis=dict(range=[min(filtered_df[selected_variable]), max(filtered_df[selected_variable])]),
     template='plotly_dark',
-    transition_duration=500
-   )
+    )
 
 
 
