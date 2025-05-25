@@ -165,8 +165,11 @@ def update_graph(selected_device, selected_variable, n):
         line={"color": "rgb(196, 69, 237)"},
     )
 
+    # Format the variable name for the title
+    formatted_variable = selected_variable.replace('_', ' ').title()
+
     layout = go.Layout(
-        title=f'{selected_variable} over Time',
+        title=f'{formatted_variable} over Time',
         xaxis=dict(range=[min(filtered_df['timestamp']), max(filtered_df['timestamp'])]),
         yaxis=dict(range=[min(filtered_df[selected_variable]), max(filtered_df[selected_variable])]),
     )
