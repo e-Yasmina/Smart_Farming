@@ -113,10 +113,8 @@ app.layout = html.Div([
             ),
         ], className="dropdown-container"),
     ], className="dropdown-row"),
-    
-    html.H2(id="dynamic-title", style={"textAlign": "center", "color": "white", "marginTop": "20px"}),
 
-    dcc.Graph(id='selected-variable-graph', animate=True),
+    dcc.Graph(id='selected-variable-graph'),
 
     html.Div(
         children=[
@@ -126,7 +124,7 @@ app.layout = html.Div([
         ],
         className="gauges-row"
     ),
-    dcc.Interval(id='graph-update', interval=5*1000),
+    dcc.Interval(id='graph-update', interval=2*1000),
 ])
 
 # Define callback to update the graph based on device and variable selection
@@ -168,16 +166,16 @@ def update_graph(selected_device, selected_variable, n):
     )
 
     # Format the variable name for the title
-    # formatted_variable = selected_variable.replace('_', ' ').title()
+    formatted_variable = selected_variable.replace('_', ' ').title()
 
     fig = go.Figure(data=[trace])
     fig.update_layout(
     # title={'text': f'{formatted_variable} over Time', 'x': 0.5},
-    # title=dict(
-    #         text=f'{formatted_variable} over Time',
-    #         font=dict(size=20),
-    #         x=0.5  # center the title
-    #     ),
+    title=dict(
+            text=f'{formatted_variable} over Time',
+            font=dict(size=20),
+            x=0.5  # center the title
+        ),
     xaxis=dict(range=[min(filtered_df['timestamp']), max(filtered_df['timestamp'])]),
     yaxis=dict(range=[min(filtered_df[selected_variable]), max(filtered_df[selected_variable])]),
     template='plotly_dark',
@@ -215,15 +213,6 @@ def update_ph_value(n):
     Output("humidity-gauge", "value"),
     Input('graph-update', 'n_intervals')
 )
-
-@app.callback(
-    Output('dynamic-title', 'children'),
-    Input('variable-dropdown', 'value')
-)
-def update_title(selected_variable):
-    formatted_variable = selected_variable.replace('_', ' ').title()
-    return f"{formatted_variable} Over Time"
-
 def update_humidity_value(n):
     # Replace this with your real-time temperature data source
     new_humidity_value = humidity_value
