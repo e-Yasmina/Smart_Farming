@@ -114,7 +114,7 @@ app.layout = html.Div([
         ], className="dropdown-container"),
     ], className="dropdown-row"),
 
-    dcc.Graph(id='selected-variable-graph', animate=True),
+    dcc.Graph(id='selected-variable-graph'),
 
     html.Div(
         children=[
